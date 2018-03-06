@@ -1,11 +1,11 @@
-#include "LinkedList.h"
+#include "DoublyLinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, char const *argv[])
 {
 	printf("Creating empty list...\n");
-	LinkedList* list = create();
+	DoublyLinkedList* list = create();
 
 	printf("Inserting element at head of list...\n");
 	list = insert(list, 1);

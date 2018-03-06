@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "SortedSinglyLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -9,15 +9,32 @@ LinkedList* create(){
 }
 
 LinkedList* insert(LinkedList* list, int value){
+	LinkedList* prev = NULL;
+	LinkedList* p = list;
+
+	while(p!=NULL && p->inf < value){
+		prev = p;
+		p = p->next;
+	}
+
+
 	LinkedList* newList = (LinkedList*) malloc(sizeof(LinkedList));
+	newList->inf = value;
 	if(newList == NULL){
 		printf("Could not allocate memory!\n");
 		exit(1);
 	}
-	newList->inf = value;
-	newList->next = list;
 
-	return newList;
+	// insert element at the head
+	if(prev == NULL){
+		newList->next = list;
+		list = newList;
+	}
+	else{
+		newList->next = prev->next;
+		prev->next = newList;
+	}
+	return list;
 }
 
 void printList(LinkedList* list){
@@ -78,9 +95,9 @@ LinkedList* removeList(LinkedList* list, int value){
 		}
 		else{
 			prev->next = p->next;
-			free(p);
-			list = prev;
 		}
+		free(p);
+
 	}
 
 	return list;

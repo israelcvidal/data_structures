@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "SinglyLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -78,9 +78,8 @@ LinkedList* removeList(LinkedList* list, int value){
 		}
 		else{
 			prev->next = p->next;
-			free(p);
-			list = prev;
 		}
+		free(p);
 	}
 
 	return list;
