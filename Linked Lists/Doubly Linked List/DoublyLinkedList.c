@@ -114,5 +114,15 @@ void freeList(DoublyLinkedList* list){
 		free(p);
 		p = next;
 	}
+}
 
+int equal(DoublyLinkedList* list1, DoublyLinkedList* list2){
+	DoublyLinkedList* p1;
+	DoublyLinkedList* p2;
+
+	for(p1= list1, p2 = list2; p1 != NULL && p2!=NULL; p1=p1->next, p2=p2->next){
+		if(p1->inf != p2->inf)
+			return 0;
+	}
+	return p1==p2;
 }

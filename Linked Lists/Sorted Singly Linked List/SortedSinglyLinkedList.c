@@ -128,3 +128,14 @@ void freeList(LinkedList* list){
 	}
 
 }
+
+int equal(LinkedList* list1, LinkedList* list2){
+	LinkedList* p1;
+	LinkedList* p2;
+
+	for(p1= list1, p2 = list2; p1 != NULL && p2!=NULL; p1=p1->next, p2=p2->next){
+		if(p1->inf != p2->inf)
+			return 0;
+	}
+	return p1==p2;
+}

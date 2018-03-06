@@ -15,3 +15,4 @@ LinkedList* search(LinkedList* list, int value);
 LinkedList* removeList(LinkedList* list, int value);
 LinkedList* recursiveRemove(LinkedList* list, int value);
 void freeList(LinkedList* list);
+int equal(LinkedList* list1, LinkedList* list2);

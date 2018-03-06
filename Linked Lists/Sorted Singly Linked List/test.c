@@ -38,6 +38,12 @@ int main(int argc, char const *argv[])
 	
 	printf("Is 1 in list? %s\n", (search(list, 1)!=NULL) ? "true": "false");
 
+	LinkedList* list2 = create();
+	list2 = insert(list2, 1);
+
+	printf("equal? %s\n", equal(list, list2) ? "true" : "false");
+	
+	
 	printf("freeList...\n");
 	freeList(list);
 	return 0;

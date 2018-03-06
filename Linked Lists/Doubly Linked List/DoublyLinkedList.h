@@ -16,3 +16,4 @@ DoublyLinkedList* search(DoublyLinkedList* list, int value);
 DoublyLinkedList* removeList(DoublyLinkedList* list, int value);
 DoublyLinkedList* recursiveRemove(DoublyLinkedList* list, int value);
 void freeList(DoublyLinkedList* list);
+int equal(DoublyLinkedList* list1, DoublyLinkedList* list2);
