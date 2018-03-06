@@ -1,4 +1,4 @@
-#include "SortedSinglyLinkedList.h"
+#include "SortedLinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 
