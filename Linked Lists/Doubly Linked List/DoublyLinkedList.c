@@ -9,20 +9,37 @@ DoublyLinkedList* create(){
 }
 
 DoublyLinkedList* insert(DoublyLinkedList* list, int value){
+	DoublyLinkedList* prev = NULL;
+	DoublyLinkedList* p = list;
+
+	while(p!=NULL && p->inf<value){
+		prev = p;
+		p = p->next;
+	}
+
 	DoublyLinkedList* newList = (DoublyLinkedList*) malloc(sizeof(DoublyLinkedList));
 	if(newList == NULL){
 		printf("Could not allocate memory!\n");
 		exit(1);
 	}
 	newList->inf = value;
-	newList->next = list;
-	newList->prev = NULL;
-
-	if(list != NULL){
-		list->prev = newList;
+	
+	// insert element at head
+	if(prev == NULL){
+		newList->next = list;
+		if(list!=NULL)
+			list->prev = newList;
+		list = newList;
+	}
+	else{
+		newList->next = prev->next;
+		if(prev->next!=NULL)
+			prev->next->prev = newList;
+		prev->next = newList;
+		newList->prev = prev;
 	}
 
-	return newList;
+	return list;
 }
 
 void printList(DoublyLinkedList* list){
