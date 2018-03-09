@@ -30,17 +30,17 @@ int main(int argc, char const *argv[])
 	list = removeList(list, 10);
 	printList(list);
 
-	printf("removeList:\n");
-	list = removeList(list, 2);
-	printList(list);
+	// printf("removeList:\n");
+	// list = removeList(list, 2);
+	// printList(list);
 
-	printf("removeList:\n");
-	list = removeList(list, 1);
-	printList(list);
+	// printf("removeList:\n");
+	// list = removeList(list, 1);
+	// printList(list);
 
-	printf("removeList:\n");
-	list = removeList(list, 10);
-	printList(list);
+	// printf("removeList:\n");
+	// list = removeList(list, 10);
+	// printList(list);
 
 	// printf("is empty? %s\n", empty(list) ? "true": "false");
 	

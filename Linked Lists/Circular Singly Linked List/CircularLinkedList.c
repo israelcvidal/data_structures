@@ -114,8 +114,8 @@ CircularLinkedList* removeList(CircularLinkedList* list, int value){
 	return list;
 }
 
+// TODO:
 
-//////////////// TODO: ////////////////////
 CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
 	if(!empty(list)){
 		// if element is the head
