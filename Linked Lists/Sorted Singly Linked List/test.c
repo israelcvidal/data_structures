@@ -7,13 +7,13 @@ int main(int argc, char const *argv[])
 	printf("Creating empty list...\n");
 	LinkedList* list = create();
 
-	printf("Inserting element at head of list...\n");
+	printf("Inserting element in list...\n");
 	list = insert(list, 1);
 
-	printf("Inserting element at head of list...\n");
+	printf("Inserting element in list...\n");
 	list = insert(list, 2);
 
-	printf("Inserting element at head of list...\n");
+	printf("Inserting element in list...\n");
 	list = insert(list, 10);
 
 	printf("printList:\n");
