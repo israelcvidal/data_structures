@@ -13,6 +13,7 @@ void recursivePrint(CircularLinkedList* list);
 int empty(CircularLinkedList* list);
 CircularLinkedList* search(CircularLinkedList* list, int value);
 CircularLinkedList* removeList(CircularLinkedList* list, int value);
+void updateHeader(CircularLinkedList* list, CircularLinkedList* oldHead, CircularLinkedList* newHead);
 CircularLinkedList* recursiveAuxRemove(CircularLinkedList* head, CircularLinkedList* list,  int value);
 CircularLinkedList* recursiveRemove(CircularLinkedList* list, int value);
 void freeList(CircularLinkedList* list);

@@ -114,9 +114,18 @@ CircularLinkedList* removeList(CircularLinkedList* list, int value){
 	return list;
 }
 
-// TODO:
+void updateHeader(CircularLinkedList* list, CircularLinkedList* oldHead, CircularLinkedList* newHead){
+	if(!empty(list)){
+		if(list->next == oldHead){
+			list->next = newHead;
+		}
+		else{
+			updateHeader(list->next, oldHead, newHead);
+		}
+	}
+}
 
-CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
+CircularLinkedList* recursiveAuxRemove(CircularLinkedList* head, CircularLinkedList* list, int value){
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
@@ -125,7 +134,26 @@ CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
 			free(aux);
 		}
 		else{
-			list->next = recursiveRemove(list->next, value);
+			list->next = recursiveAuxRemove(head, list->next, value);
+		}
+	}
+	
+	return list;
+}
+
+
+CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
+	if(!empty(list)){
+		// if element is the head
+		if(list->inf == value){
+			updateHeader(list, list, list->next);
+
+			CircularLinkedList* aux = list;
+			list = list->next;
+			free(aux);
+		}
+		else{
+			list->next = recursiveAuxRemove(list, list->next, value);
 		}
 	}
 	
@@ -133,12 +161,13 @@ CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
 }
 
 void freeList(CircularLinkedList* list){
+
 	CircularLinkedList* p = list;
 	CircularLinkedList* next = NULL;
-	while(p != NULL){
+	if(!empty(list)) do{
 		next = p->next;
 		free(p);
 		p = next;
-	}
+	} while(p!=list);
 
 }
