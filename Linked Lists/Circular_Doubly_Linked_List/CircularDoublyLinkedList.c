@@ -1,16 +1,16 @@
-#include "CircularLinkedList.h"
+#include "CircularDoublyLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 
 
-CircularLinkedList* create(){
+CircularDoublyLinkedList* create(){
 	return NULL;
 }
 
-CircularLinkedList* insert(CircularLinkedList* list, int value){
-	CircularLinkedList* newList = (CircularLinkedList*) malloc(sizeof(CircularLinkedList));
-	CircularLinkedList* p = list;
+CircularDoublyLinkedList* insert(CircularDoublyLinkedList* list, int value){
+	CircularDoublyLinkedList* newList = (CircularDoublyLinkedList*) malloc(sizeof(CircularDoublyLinkedList));
+	CircularDoublyLinkedList* p = list;
 
 	if(newList == NULL){
 		printf("Could not allocate memory!\n");
@@ -21,20 +21,22 @@ CircularLinkedList* insert(CircularLinkedList* list, int value){
 
 	if(empty(list)){
 		newList->next = newList;
+		newList->prev = newList;
 	}
 	else{
 		while(p->next != list){
 			p = p->next;
 		}
 		p->next = newList;
+		newList->prev = p->next;
 		newList->next = list;
 	}
 	
 	return newList;
 }
 
-void printList(CircularLinkedList* list){
-	CircularLinkedList* p = list;
+void printList(CircularDoublyLinkedList* list){
+	CircularDoublyLinkedList* p = list;
 	
 	if(!empty(p)) do {
 		printf("%d\t", p->inf);
@@ -44,7 +46,7 @@ void printList(CircularLinkedList* list){
 	printf("\n");
 }
 
-void recursiveAuxPrint(CircularLinkedList* head, CircularLinkedList* list){
+void recursiveAuxPrint(CircularDoublyLinkedList* head, CircularDoublyLinkedList* list){
 	if(list!=head){
 		printf("%d\t", list->inf);
 		recursiveAuxPrint(head, list->next);
@@ -54,7 +56,7 @@ void recursiveAuxPrint(CircularLinkedList* head, CircularLinkedList* list){
 	}
 }
 
-void recursivePrint(CircularLinkedList* list){
+void recursivePrint(CircularDoublyLinkedList* list){
 	if(!empty(list)){
 		printf("%d\t", list->inf);
 		recursiveAuxPrint(list, list->next);
@@ -64,12 +66,12 @@ void recursivePrint(CircularLinkedList* list){
 	}
 }
 
-int empty(CircularLinkedList* list){
+int empty(CircularDoublyLinkedList* list){
 	return list == NULL;
 }
 
-CircularLinkedList* search(CircularLinkedList* list, int value){
-	CircularLinkedList* p = list;
+CircularDoublyLinkedList* search(CircularDoublyLinkedList* list, int value){
+	CircularDoublyLinkedList* p = list;
 
 	if(!empty(p)) do{
 		if(p->inf == value)
@@ -80,12 +82,10 @@ CircularLinkedList* search(CircularLinkedList* list, int value){
 	return NULL;
 }
 
-CircularLinkedList* removeList(CircularLinkedList* list, int value){
-	CircularLinkedList* prev = create();
-	CircularLinkedList* p = list;
+CircularDoublyLinkedList* removeList(CircularDoublyLinkedList* list, int value){
+	CircularDoublyLinkedList* p = list;
 	
 	if(!empty(p) && p->inf != value) do{
-		prev = p;
 		p = p->next;
 
 	} while(p != list && p->inf != value);
@@ -93,20 +93,19 @@ CircularLinkedList* removeList(CircularLinkedList* list, int value){
 	// If contains element
 	if(!empty(p) && p->inf == value){
 		// Element is the head 
-		if (prev == NULL){
-			CircularLinkedList* aux = p;
+		if (p == list){
 			// finding last element
-			while(aux->next != list){
-				aux = aux->next;
-			}
-			aux->next = p->next;
+			p->prev->next = p->next;
+			p->next->prev = p->prev;
+			
 			if(list!=p->next){
 				list =  p->next;
 			}
 			else list = NULL;
 		}
 		else{
-			prev->next = p->next;
+			p->prev->next = p->next;
+			p->next->prev = p->prev;
 		}
 		free(p);
 	}
@@ -114,7 +113,9 @@ CircularLinkedList* removeList(CircularLinkedList* list, int value){
 	return list;
 }
 
-void updateHeader(CircularLinkedList* list, CircularLinkedList* oldHead, CircularLinkedList* newHead){
+
+// TODO :
+void updateHeader(CircularDoublyLinkedList* list, CircularDoublyLinkedList* oldHead, CircularDoublyLinkedList* newHead){
 	if(!empty(list)){
 		if(list->next == oldHead){
 			list->next = newHead;
@@ -125,11 +126,11 @@ void updateHeader(CircularLinkedList* list, CircularLinkedList* oldHead, Circula
 	}
 }
 
-CircularLinkedList* recursiveAuxRemove(CircularLinkedList* head, CircularLinkedList* list, int value){
+CircularDoublyLinkedList* recursiveAuxRemove(CircularDoublyLinkedList* head, CircularDoublyLinkedList* list, int value){
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
-			CircularLinkedList* aux = list;
+			CircularDoublyLinkedList* aux = list;
 			list = list->next;
 			free(aux);
 		}
@@ -142,13 +143,13 @@ CircularLinkedList* recursiveAuxRemove(CircularLinkedList* head, CircularLinkedL
 }
 
 
-CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
+CircularDoublyLinkedList* recursiveRemove(CircularDoublyLinkedList* list,  int value){
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
 			updateHeader(list, list, list->next);
 
-			CircularLinkedList* aux = list;
+			CircularDoublyLinkedList* aux = list;
 			list = list->next;
 			free(aux);
 		}
@@ -160,10 +161,10 @@ CircularLinkedList* recursiveRemove(CircularLinkedList* list,  int value){
 	return list;
 }
 
-void freeList(CircularLinkedList* list){
+void freeList(CircularDoublyLinkedList* list){
 
-	CircularLinkedList* p = list;
-	CircularLinkedList* next = NULL;
+	CircularDoublyLinkedList* p = list;
+	CircularDoublyLinkedList* next = NULL;
 	if(!empty(list)) do{
 		next = p->next;
 		free(p);
