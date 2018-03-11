@@ -28,7 +28,7 @@ CircularDoublyLinkedList* insert(CircularDoublyLinkedList* list, int value){
 			p = p->next;
 		}
 		p->next = newList;
-		newList->prev = p->next;
+		newList->prev = p;
 		newList->next = list;
 	}
 	
@@ -93,50 +93,36 @@ CircularDoublyLinkedList* removeList(CircularDoublyLinkedList* list, int value){
 	// If contains element
 	if(!empty(p) && p->inf == value){
 		// Element is the head 
-		if (p == list){
-			// finding last element
-			p->prev->next = p->next;
-			p->next->prev = p->prev;
-			
-			if(list!=p->next){
-				list =  p->next;
-			}
-			else list = NULL;
+		p->prev->next = p->next;
+		p->next->prev = p->prev;
+		if(list!=p->next){
+			list =  p->next;
 		}
-		else{
-			p->prev->next = p->next;
-			p->next->prev = p->prev;
-		}
+		else list = NULL;
+		
 		free(p);
 	}
-
 	return list;
 }
 
-
-// TODO :
-void updateHeader(CircularDoublyLinkedList* list, CircularDoublyLinkedList* oldHead, CircularDoublyLinkedList* newHead){
-	if(!empty(list)){
-		if(list->next == oldHead){
-			list->next = newHead;
-		}
-		else{
-			updateHeader(list->next, oldHead, newHead);
-		}
-	}
-}
 
 CircularDoublyLinkedList* recursiveAuxRemove(CircularDoublyLinkedList* head, CircularDoublyLinkedList* list, int value){
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
+			printf("entrou\n");
+			list->next->prev = list->prev;
+
 			CircularDoublyLinkedList* aux = list;
-			list = list->next;
+			if(list != list->next){
+				list = list->next;
+			}
+			else list = NULL;
 			free(aux);
 		}
-		else{
-			list->next = recursiveAuxRemove(head, list->next, value);
-		}
+		else if(list->next != head){
+				list->next = recursiveAuxRemove(head, list->next, value);
+			}	
 	}
 	
 	return list;
@@ -147,10 +133,14 @@ CircularDoublyLinkedList* recursiveRemove(CircularDoublyLinkedList* list,  int v
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
-			updateHeader(list, list, list->next);
+			list->prev->next = list->next;
+			list->next->prev = list->prev;
 
 			CircularDoublyLinkedList* aux = list;
-			list = list->next;
+			if(list != list->next){
+				list = list->next;
+			}
+			else list = NULL;
 			free(aux);
 		}
 		else{

@@ -22,25 +22,25 @@ int main(int argc, char const *argv[])
 	printf("recursivePrint:\n");
 	recursivePrint(list);
 
+	printf("recursiveRemove: 10\n");
+	list = recursiveRemove(list, 10);
+	printList(list);
+
+	printf("recursiveRemove: 10\n");
+	list = recursiveRemove(list, 10);
+	printList(list);
+
 	printf("recursiveRemove: 2\n");
 	list = recursiveRemove(list, 2);
 	printList(list);
 
-	// printf("removeList:\n");
-	// list = removeList(list, 10);
-	// printList(list);
+	printf("recursiveRemove: 1\n");
+	list = recursiveRemove(list, 1);
+	printList(list);
 
-	// printf("removeList:\n");
-	// list = removeList(list, 2);
-	// printList(list);
-
-	// printf("removeList:\n");
-	// list = removeList(list, 1);
-	// printList(list);
-
-	// printf("removeList:\n");
-	// list = removeList(list, 10);
-	// printList(list);
+	printf("recursiveRemove: 10\n");
+	list = recursiveRemove(list, 10);
+	printList(list);
 
 	printf("is empty? %s\n", empty(list) ? "true": "false");
 	
