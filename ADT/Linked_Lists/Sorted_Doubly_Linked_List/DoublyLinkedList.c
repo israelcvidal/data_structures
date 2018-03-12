@@ -94,6 +94,7 @@ DoublyLinkedList* removeList(DoublyLinkedList* list, int value){
 		// Element is the head 
 		if (p->prev == NULL){
 			list =  p->next;
+			list->prev = NULL;
 		}
 		else{
 			p->prev->next = p->next;
@@ -112,8 +113,15 @@ DoublyLinkedList* recursiveRemove(DoublyLinkedList* list,  int value){
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
+			if(list->next!=NULL){
+				list->next->prev = list->prev;
+			}
+			if(list->prev!=NULL){
+				list->prev->next = list->next;
+			}
+			DoublyLinkedList* aux = list;
 			list = list->next;
-			free(list->prev);
+			free(aux);
 		}
 		else{
 			list->next = recursiveRemove(list->next, value);
