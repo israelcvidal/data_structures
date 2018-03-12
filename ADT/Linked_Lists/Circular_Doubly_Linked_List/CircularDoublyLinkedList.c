@@ -110,7 +110,6 @@ CircularDoublyLinkedList* recursiveAuxRemove(CircularDoublyLinkedList* head, Cir
 	if(!empty(list)){
 		// if element is the head
 		if(list->inf == value){
-			printf("entrou\n");
 			list->next->prev = list->prev;
 
 			CircularDoublyLinkedList* aux = list;
