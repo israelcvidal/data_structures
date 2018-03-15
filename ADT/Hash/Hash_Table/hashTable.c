@@ -1,7 +1,7 @@
-#include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
 #include "hashTable.h"
+#include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 
 HashTable* createHashTable(int n){
 	HashTable* hashTable = (HashTable*)malloc(sizeof(HashTable));
@@ -15,19 +15,35 @@ HashTable* createHashTable(int n){
 }
 
 void insertHashTable(HashTable* hashTable, int key){
-	int bucket = key%(hashTable->numberOfKeys/2);
+	int bucket = getBucket(hashTable, key);
 	hashTable->array[bucket] = insert(hashTable->array[bucket], key);
 }
 
-HashTable* searchHashTable(HashTable* hashTable, int key){
-	int bucket = key%(hashTable->numberOfKeys/2);
+LinkedList* searchHashTable(HashTable* hashTable, int key){
+	int bucket = getBucket(hashTable, key);
 	return search(hashTable->array[bucket], key);
 }
 
-HashTable* removeHashTable(HashTable* hashTable, int key){
-	return NULL;
+void removeHashTable(HashTable* hashTable, int key){
+	int bucket = getBucket(hashTable, key);
+	hashTable->array[bucket] = removeList(hashTable->array[bucket], key);
 }
 
 void freeHashTable(HashTable* hashTable){
-	return NULL;
+	for (int i = 0; i < hashTable->numberOfKeys/2; ++i){
+		freeList(hashTable->array[i]);
+	}
+	free(hashTable);
+}
+
+int getBucket(HashTable* hashTable, int key){
+	return key%(hashTable->numberOfKeys/2);
+}
+
+void printHashTable(HashTable* hashTable){
+	for (int i = 0; i < hashTable->numberOfKeys/2; ++i){
+		printf("BUCKET %d:\n", i);
+		printList(hashTable->array[i]);
+		printf("\n");
+	}
 }
