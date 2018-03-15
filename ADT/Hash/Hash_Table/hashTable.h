@@ -1,5 +1,3 @@
-#include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
-
 typedef struct hashTable HashTable;
 
 struct hashTable{
