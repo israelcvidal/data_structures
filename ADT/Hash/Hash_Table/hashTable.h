@@ -1,8 +1,10 @@
+#include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
+
 typedef struct hashTable HashTable;
 
 struct hashTable{
-	int numberOfKeys;
-	LinkedList** array;
+    int numberOfKeys;
+    LinkedList** array;
 };
 
 HashTable* createHashTable(int n);

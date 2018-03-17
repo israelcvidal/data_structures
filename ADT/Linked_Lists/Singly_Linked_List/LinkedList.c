@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
-
 LinkedList* create(){
 	return NULL;
 }
