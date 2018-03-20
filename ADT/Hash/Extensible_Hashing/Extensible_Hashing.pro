@@ -4,7 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    ExtensibleHashing.c
+    ExtensibleHashing.c \
+    main.c
 
 HEADERS += \
     ExtensibleHashing.h
