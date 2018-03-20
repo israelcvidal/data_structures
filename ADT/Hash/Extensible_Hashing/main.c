@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]){
 
-    printf("%s\n", getBits(257, 9));
+    printf("%d\n", strlen(getBin(2, NULL )));
 
     return 0;
 }

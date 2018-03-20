@@ -13,22 +13,38 @@ void freeHashTable(ExtensibleHashing* extensibleHashing);
 int getBucket(ExtensibleHashing* extensibleHashing, int key);
 void printHashTable(ExtensibleHashing* extensibleHashing);
 
-char* getBits(int number, int n){
+char* getBin(int number, int n){
     char* buffer = int2bin(number);
-    char* nBits = malloc(sizeof(char)*n);
+    char* nBits;
     int len = strlen(buffer);
-
-    if( n <= len){
+    if(n != NULL){
+        if( n <= len){
+            nBits = malloc(sizeof(char)*n);
+            int i = 0;
+            for(int j = len - n; j<= len; j++){
+                nBits[i] = buffer[j];
+                i++;
+            }
+        }
+        else{
+            printf("n is too big!\n");
+            EXIT_FAILURE;
+        }
+    }
+    else{
         int i = 0;
-        for(int j = len - n; j<= len; j++){
+        int j = 0;
+        while(buffer[j] == '0'){
+            j++;
+        }
+
+        nBits = malloc(sizeof(char)*(len-j));
+        for(j = j; j<= len; j++){
             nBits[i] = buffer[j];
             i++;
         }
     }
-    else{
-        printf("n is too big!\n");
-        EXIT_FAILURE;
-    }
+
     return nBits;
 //    if(strlen(buffer) )
 }

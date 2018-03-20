@@ -14,5 +14,5 @@ void removeHashTable(ExtensibleHashing* extensibleHashing, int key);
 void freeHashTable(ExtensibleHashing* extensibleHashing);
 int getBucket(ExtensibleHashing* extensibleHashing, int key);
 void printHashTable(ExtensibleHashing* extensibleHashing);
-char* getBits(int number, int n);
+char* getBin(int number, int n);
 char* int2bin(int n);
