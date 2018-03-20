@@ -4,14 +4,14 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    hashTable.c \
     test.c \
-    ../../Linked_Lists/Singly_Linked_List/LinkedList.c
+    ../../Linked_Lists/Singly_Linked_List/LinkedList.c \
+    HashTable.c
 
 
 DISTFILES +=
 
 HEADERS += \
-    hashTable.h \
-    ../../Linked_Lists/Singly_Linked_List/LinkedList.h
+    ../../Linked_Lists/Singly_Linked_List/LinkedList.h \
+    HashTable.h
 

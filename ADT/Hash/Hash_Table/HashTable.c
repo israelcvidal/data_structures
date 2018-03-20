@@ -1,4 +1,4 @@
-#include "hashTable.h"
+#include "HashTable.h"
 #include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
