@@ -1,15 +1,19 @@
 TEMPLATE = app
-CONFIG += console
+CONFIG += console \
+          c11
+
 CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
     ExtendibleHashing.c \
     main.c \
-    HashMap.c \
-    Bucket.c
+    Bucket.c \
+    "../../Linked_Lists/Singly_Linked_List/LinkedList.c" \
+    Directory.c
 
 HEADERS += \
     ExtendibleHashing.h \
     Bucket.h \
-    HashMap.h
+    "../../Linked_Lists/Singly_Linked_List/LinkedList.h" \
+    Directory.h

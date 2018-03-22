@@ -1,21 +1,48 @@
-#include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
 #include "Bucket.h"
 #include<stdlib.h>
 
-Bucket* createBucket(int size){
+Bucket* createBucket(int size, int localDepth){
     Bucket* bucket = (Bucket*)malloc(sizeof(Bucket));
     bucket->size = size;
+    bucket->localDepth = localDepth;
+    bucket->occupied = 0;
     bucket->array = create();
+    return bucket;
 }
-int insertBucket(Bucket* bucket, int key){
-    int occupied = sizeof(bucket->array);
-    if(occupied < bucket->size){
-        insert(bucket, key);
+
+void insertBucket(Bucket* bucket, int key){
+    if(bucket->occupied < bucket->size){
+        bucket->array = insert(bucket->array, key);
+        bucket->occupied+=1;
     }
     else{
-//        TODO: CONTINUE FROM HERE!
+        exit(EXIT_FAILURE);
     }
 }
-void removeBucket(Bucket* bucket, int key);
-LinkedList* searchBucket(Bucket* bucket, int key);
-void freeBucket(Bucket* bucket);
+
+void removeBucket(Bucket* bucket, int key){
+    bucket->array = removeList(bucket->array, key);
+}
+
+LinkedList* searchBucket(Bucket* bucket, int key){
+    return search(bucket->array, key);
+}
+
+void freeBucket(Bucket* bucket){
+    freeList(bucket->array);
+    free(bucket);
+}
+
+void printBucket(Bucket* bucket){
+    printList(bucket->array);
+}
+
+int sizeList(LinkedList* list){
+    int count = 0;
+    LinkedList* head = list;
+    while (head!=NULL) {
+        count+=1;
+        head = head->next;
+    }
+    return count;
+}

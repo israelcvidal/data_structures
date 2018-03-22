@@ -1,0 +1,111 @@
+#include "../../Linked_Lists/Singly_Linked_List/LinkedList.h"
+#include "Directory.h"
+#include "Bucket.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+
+Directory* createDirectory(int bucketSize, int globalDepth){
+    Directory* directory = (Directory*)malloc(sizeof(Directory));
+    directory->bucketSize = bucketSize;
+    directory->globalDepth = globalDepth;
+    directory->array = (Bucket**)malloc(sizeof(Bucket*)*pow(2, globalDepth));
+
+    Bucket* bucket;
+    if(bucketSize > 0){
+        bucket = createBucket(bucketSize, 0);
+        for (int i = 0; i < pow(2, globalDepth); ++i){
+            directory->array[i] = bucket;
+        }
+    }
+    return directory;
+}
+
+void insertDirectory(Directory* directory, int key){
+    int index = (int)getKey(key, directory->globalDepth);
+    Bucket* bucket = directory->array[index];
+    if(sizeList(bucket->array) < bucket->size){
+        insertBucket(bucket, key);
+    }
+    else{
+        if(directory->globalDepth == bucket->localDepth)
+            directory = doubleDirectory(directory);
+        recursiveInsertDirectory(directory, key);
+    }
+}
+
+LinkedList* searchDirectory(Directory* directory, int key){
+    int index = (int)getKey(key, directory->globalDepth);
+    return searchBucket(directory->array[index], key);
+}
+
+Directory* doubleDirectory(Directory* directory){
+    Directory* doubledDirectory = createDirectory(directory->bucketSize, directory->globalDepth+1);
+    for(int i=0; i<pow(2, doubledDirectory->globalDepth); i++){
+        doubledDirectory->array[i] = directory->array[getKey(i, directory->globalDepth)];
+    }
+    freeDirectory(directory);
+
+    return doubledDirectory;
+}
+
+void recursiveInsertDirectory(Directory* directory, int key){
+    int index = (int)getKey(key, directory->globalDepth);
+    Bucket* bucket = directory->array[index];
+    bucket->localDepth+=1;
+    Bucket* splitBucket = createBucket(bucket->size, bucket->localDepth);
+    int first = 1;
+    int splitBucketIndex;
+
+    for(int i=0; i<pow(2, directory->globalDepth); i++){
+        if(directory->array[i] == bucket){
+            if(first){
+                first = 0;
+            }
+            else{
+                directory->array[i] = splitBucket;
+                splitBucketIndex = i;
+                break;
+            }
+        }
+    }
+
+    LinkedList* p = bucket->array;
+
+    while(p!=NULL){
+        if(getKey(p->inf, bucket->localDepth) == splitBucketIndex){
+            insertBucket(splitBucket, p->inf);
+            int sizeBefore = sizeList(bucket->array);
+            bucket->array = removeList(p, p->inf);
+            p = bucket->array;
+
+            if(sizeList(p) != sizeBefore)
+                bucket->occupied-=1;
+        }
+        p = p->next;
+
+    }
+
+    insertDirectory(directory, key);
+}
+
+void freeDirectory(Directory* directory){
+    for(int i=0; i<pow(2, directory->globalDepth); i++){
+        freeBucket(directory->array[i]);
+    }
+    free(directory->array);
+    free(directory);
+}
+
+void printDirectory(Directory* directory){
+    for(int i=0; i<pow(2, directory->globalDepth); i++){
+        printf("DIR[%d]:\n", i);
+        printBucket(directory->array[i]);
+        printf("\n");
+    }
+}
+
+byte getKey(int value, unsigned int leastBits){
+    int nbit_mask = (1 << leastBits) - 1;
+    return (byte)(value & nbit_mask);
+}
