@@ -7,15 +7,15 @@
 #include <string.h>
 
 
-ExtendibleHashing* createExtendibleHashing(int bucketSize, int globalDepth){
+ExtendibleHashing* createExtendibleHashing(int bucketSize){
     ExtendibleHashing* extendibleHashing = (ExtendibleHashing*)malloc(sizeof(ExtendibleHashing));
 
-    extendibleHashing->directory = createDirectory(bucketSize, globalDepth);
+    extendibleHashing->directory = createDirectory(bucketSize, 1);
     return extendibleHashing;
 }
 
 void insertExtendibleHashing(ExtendibleHashing* extendibleHashing, int key){
-    insertDirectory(extendibleHashing->directory, key);
+    extendibleHashing->directory = insertDirectory(extendibleHashing->directory, key);
 }
 
 LinkedList* searchExtendibleHashing(ExtendibleHashing* extendibleHashing, int key){

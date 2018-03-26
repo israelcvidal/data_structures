@@ -8,7 +8,7 @@ struct extendibleHashing{
     Directory* directory;
 };
 
-ExtendibleHashing* createExtendibleHashing(int bucketSize, int globalDepth);
+ExtendibleHashing* createExtendibleHashing(int bucketSize);
 void insertExtendibleHashing(ExtendibleHashing* extendibleHashing, int key);
 LinkedList* searchExtendibleHashing(ExtendibleHashing* extendibleHashing, int key);
 void freeExtendibleHashing(ExtendibleHashing* extendibleHashing);

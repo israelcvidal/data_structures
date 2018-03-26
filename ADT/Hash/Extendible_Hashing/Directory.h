@@ -12,10 +12,10 @@ struct directory{
 };
 
 Directory* createDirectory(int bucketSize, int globalDepth);
-void insertDirectory(Directory* directory, int key);
+Directory* insertDirectory(Directory* directory, int key);
 LinkedList* searchDirectory(Directory* directory, int key);
 void freeDirectory(Directory* directory);
 void printDirectory(Directory* directory);
 byte getKey(int value, unsigned int leastBits);
 Directory* doubleDirectory(Directory* directory);
-void recursiveInsertDirectory(Directory* directory, int key);
+Directory* recursiveInsertDirectory(Directory* directory, int key);

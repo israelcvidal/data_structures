@@ -21,7 +21,7 @@ Directory* createDirectory(int bucketSize, int globalDepth){
     return directory;
 }
 
-void insertDirectory(Directory* directory, int key){
+Directory* insertDirectory(Directory* directory, int key){
     int index = (int)getKey(key, directory->globalDepth);
     Bucket* bucket = directory->array[index];
     if(sizeList(bucket->array) < bucket->size){
@@ -30,8 +30,10 @@ void insertDirectory(Directory* directory, int key){
     else{
         if(directory->globalDepth == bucket->localDepth)
             directory = doubleDirectory(directory);
-        recursiveInsertDirectory(directory, key);
+        directory = recursiveInsertDirectory(directory, key);
     }
+
+    return directory;
 }
 
 LinkedList* searchDirectory(Directory* directory, int key){
@@ -49,22 +51,27 @@ Directory* doubleDirectory(Directory* directory){
     return doubledDirectory;
 }
 
-void recursiveInsertDirectory(Directory* directory, int key){
+Directory* recursiveInsertDirectory(Directory* directory, int key){
     int index = (int)getKey(key, directory->globalDepth);
     Bucket* bucket = directory->array[index];
-    bucket->localDepth+=1;
-    Bucket* splitBucket = createBucket(bucket->size, bucket->localDepth);
+    Bucket* splitBucket1 = createBucket(bucket->size, bucket->localDepth+1);
+    Bucket* splitBucket2 = createBucket(bucket->size, bucket->localDepth+1);
+
     int first = 1;
-    int splitBucketIndex;
+    int splitBucketIndex1;
+    int splitBucketIndex2;
+
 
     for(int i=0; i<pow(2, directory->globalDepth); i++){
         if(directory->array[i] == bucket){
             if(first){
                 first = 0;
+                directory->array[i] = splitBucket1;
+                splitBucketIndex1 = i;
             }
             else{
-                directory->array[i] = splitBucket;
-                splitBucketIndex = i;
+                directory->array[i] = splitBucket2;
+                splitBucketIndex2 = i;
                 break;
             }
         }
@@ -73,27 +80,21 @@ void recursiveInsertDirectory(Directory* directory, int key){
     LinkedList* p = bucket->array;
 
     while(p!=NULL){
-        if(getKey(p->inf, bucket->localDepth) == splitBucketIndex){
-            insertBucket(splitBucket, p->inf);
-            int sizeBefore = sizeList(bucket->array);
-            bucket->array = removeList(p, p->inf);
-            p = bucket->array;
-
-            if(sizeList(p) != sizeBefore)
-                bucket->occupied-=1;
+        int auxKey = getKey(p->inf, bucket->localDepth+1);
+        if(auxKey  == splitBucketIndex1){
+            insertBucket(splitBucket1, p->inf);
         }
+        else if(auxKey  == splitBucketIndex2){
+                insertBucket(splitBucket2, p->inf);
+            }
         p = p->next;
-
     }
-
-    insertDirectory(directory, key);
+    freeBucket(bucket);
+    directory = insertDirectory(directory, key);
+    return directory;
 }
 
 void freeDirectory(Directory* directory){
-    for(int i=0; i<pow(2, directory->globalDepth); i++){
-        freeBucket(directory->array[i]);
-    }
-    free(directory->array);
     free(directory);
 }
 
