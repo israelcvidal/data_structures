@@ -19,3 +19,4 @@ void printDirectory(Directory* directory);
 byte getKey(int value, unsigned int leastBits);
 Directory* doubleDirectory(Directory* directory);
 Directory* recursiveInsertDirectory(Directory* directory, int key);
+void removeDirectory(Directory* directory, int key);

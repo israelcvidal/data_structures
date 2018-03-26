@@ -46,7 +46,7 @@ Directory* doubleDirectory(Directory* directory){
     for(int i=0; i<pow(2, doubledDirectory->globalDepth); i++){
         doubledDirectory->array[i] = directory->array[getKey(i, directory->globalDepth)];
     }
-    freeDirectory(directory);
+    free(directory);
 
     return doubledDirectory;
 }
@@ -95,6 +95,10 @@ Directory* recursiveInsertDirectory(Directory* directory, int key){
 }
 
 void freeDirectory(Directory* directory){
+    for(int i=0; i<pow(2, directory->globalDepth); i++){
+        if(directory->array!=NULL)
+            freeBucket(directory->array);
+    }
     free(directory);
 }
 
@@ -109,4 +113,9 @@ void printDirectory(Directory* directory){
 byte getKey(int value, unsigned int leastBits){
     int nbit_mask = (1 << leastBits) - 1;
     return (byte)(value & nbit_mask);
+}
+
+void removeDirectory(Directory* directory, int key){
+    int index = (int)getKey(key, directory->globalDepth);
+    removeBucket(directory->array[index], key);
 }

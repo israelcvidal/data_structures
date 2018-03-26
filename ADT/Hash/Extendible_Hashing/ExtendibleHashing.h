@@ -13,3 +13,4 @@ void insertExtendibleHashing(ExtendibleHashing* extendibleHashing, int key);
 LinkedList* searchExtendibleHashing(ExtendibleHashing* extendibleHashing, int key);
 void freeExtendibleHashing(ExtendibleHashing* extendibleHashing);
 void printExtendibleHashing(ExtendibleHashing* extendibleHashing);
+void removeExtendibleHashing(ExtendibleHashing* extendibleHashing, int key);

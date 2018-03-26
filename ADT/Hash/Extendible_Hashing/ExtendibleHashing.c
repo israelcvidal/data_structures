@@ -31,3 +31,6 @@ void printExtendibleHashing(ExtendibleHashing* extendibleHashing){
     printDirectory(extendibleHashing->directory);
 }
 
+void removeExtendibleHashing(ExtendibleHashing* extendibleHashing, int key){
+    removeDirectory(extendibleHashing->directory, key);
+}
