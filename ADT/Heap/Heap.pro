@@ -2,4 +2,5 @@ HEADERS += \
     Heap.h
 
 SOURCES += \
-    Heap.c
+    Heap.c \
+    main.c
