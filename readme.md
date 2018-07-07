@@ -2,7 +2,7 @@
 ## Federal University of Ceará
 ### Israel de Castro Vidal, 2018
 
-#### 1) [Linked Lists](israelcvidal/data-structures/src/master/Linked_Lists/)
+#### 1) [Linked Lists](/Linked_Lists/)
 
 #### 2) [Algorithms Complexity](https://bitbucket.org/israelcvidal/data-structures/src/master/Algorithms_Complexity/)
 
