@@ -4,18 +4,18 @@
 
 #### 1) [Linked Lists](/Linked_Lists/)
 
-#### 2) [Algorithms Complexity](https://bitbucket.org/israelcvidal/data-structures/src/master/Algorithms_Complexity/)
+#### 2) [Algorithms Complexity](/Algorithms_Complexity/)
 
-#### 3) [Hashing](https://bitbucket.org/israelcvidal/data-structures/src/master/Hash/Hash_Table/)
+#### 3) [Hashing](/Hash/Hash_Table/)
 
-#### 4) [Dynamic Hashing](https://bitbucket.org/israelcvidal/data-structures/src/master/Hash/Extendible_Hashing/)
+#### 4) [Dynamic Hashing](/Hash/Extendible_Hashing/)
 
-#### 5) [Heap](https://bitbucket.org/israelcvidal/data-structures/src/master/Heap/)
+#### 5) [Heap](/Heap/)
 
-#### 6) [Sets](https://bitbucket.org/israelcvidal/data-structures/src/master/Set/)
+#### 6) [Sets](/Set/)
 
-#### 7) [Partition Sets](https://bitbucket.org/israelcvidal/data-structures/src/master/Partition/)
+#### 7) [Partition Sets](/Partition/)
 
-#### 8) [Binary Search Tree](https://bitbucket.org/israelcvidal/data-structures/src/master/Binary_Search_Tree/)
+#### 8) [Binary Search Tree](/Binary_Search_Tree/)
 
 #### 9) [B+-Tree]()
